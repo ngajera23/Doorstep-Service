@@ -9,7 +9,7 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo');
 const Handlebars = require('handlebars');
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
-
+var passport = require('passport');
 const DB_URL = 'mongodb://localhost:27017/my-web-project';
 
 // ---------------------------- import routers -------------------------
@@ -48,10 +48,30 @@ mongoose.connection.on('error', function () {
   console.error("Could not connect to database");
 });
 
+// ------------------------ session ------------------------
+// Passport configuration
+require('./utils/passport')(passport);
+
+// required for passport secret for session
+app.use(session({
+  secret: 'my-secret-text',
+  saveUninitialized: true,
+  resave: true,
+  //store session on MongoDB using express-session + connect mongo,
+  store: MongoStore.create({
+    mongoUrl: DB_URL,
+    collectionName: 'sessions'
+  }),
+}));
+
+// Init passport authentication
+app.use(passport.initialize());
+// persistent login sessions
+app.use(passport.session());
+
 
 // ----------------------------- routes -----------------------------
 app.use('/', indexRouter);
-
 
 // error handler
 app.use(function (err, req, res, next) {

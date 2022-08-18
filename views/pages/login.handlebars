@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{{title}}</title>
+  {{> externals }}
+</head>
+
+<body>
+  {{> header }}
+  <div class="container">
+    {{#if message }}
+    <div class="alert alert-warning alert-dismissible
+                    fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong>Ohps!</strong>
+      {{message}}
+    </div>
+    {{/if}}
+
+    <form class="form-signin border mt-3 rounded" action="/login" method="post">
+      <h2 class="m-t text-center"> Sign In</h2>
+      <label class="mt-3">Email address</label>
+      <input type="email" id="email" name="email" class="form-control mt-2" placeholder="Email address" required="">
+
+      <label class="mt-3">Password</label>
+      <input type="password" id="password" name="password" class="form-control mt-2" placeholder="Password" required="">
+      <div class="d-flex">
+        <button class="btn mx-auto text-center btn-primary mt-3" type="submit">Sign in</button>
+      </div>
+      <p class="text-center mt-3"><a href="/signup">Signup here</a></p>
+    </form>
+  </div>
+  {{> footer}}
+</body>
+
+</html>
