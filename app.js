@@ -14,6 +14,7 @@ const DB_URL = 'mongodb://localhost:27017/my-web-project';
 
 // ---------------------------- import routers -------------------------
 var indexRouter = require('./routes/index');
+var homeRouter = require('./routes/home');
 
 var app = express();
 
@@ -70,8 +71,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
+
 // ----------------------------- routes -----------------------------
 app.use('/', indexRouter);
+app.use('/', homeRouter);
 
 // error handler
 app.use(function (err, req, res, next) {

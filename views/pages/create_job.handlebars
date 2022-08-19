@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{{title}}</title>
+  {{> externals }}
+</head>
+
+<body>
+  {{> header }}
+  <div class="container">
+    <h1 class="mt-3">
+      Hello {{user.local.firstName}}
+    </h1>
+    <h2 class="text-center mt-2">Create Your job here</h2>
+    <div class="d-flex">
+      <form method="post" class="mx-auto" action="/create_job">
+        <label for="title" class="mt-2">Title</label>
+        <input type="text" class="form-control mt-2" name="title" placeholder="Job Title" id="jobTitle" />
+        <label  class="mt-2" for="description">Description</label>
+        <input type="text" class="form-control mt-2" name="description" placeholder="Job Description" id="jobDescription" />
+        <label class="mt-2" for="location">Location</label>
+        <input type="text" class="form-control mt-2" name="location" placeholder="Job Location" id="jobLocation" />
+        <label class="mt-2" for="salary">Salary</label>
+        <input type="number" class="form-control mt-2" name="salary" placeholder="Job Salary" id="jobSalary" />
+        <button type="submit" class="btn btn-primary mt-2 w-100">Post Job</button>
+      </form>
+    </div>
+  </div>
+  {{> footer}}
+</body>
+
+</html>

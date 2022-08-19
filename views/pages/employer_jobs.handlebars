@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{{title}}</title>
+  {{> externals }}
+</head>
+
+<body>
+  {{> header }}
+  <div class="container">
+    <h1 class="mt-3">
+      Hello {{user.local.firstName}}
+    </h1>
+    <div class="container mb-3">
+      <div class="d-flex">
+        <a href="/create_job" class="btn btn-lg btn-primary mx-auto w-50">Post Job</a>
+      </div>
+
+      <div class="col-md-12 row mt-2">
+        <div class="col-md-12 mt-2">
+          <h2 class="text-center">Your Jobs</h2>
+        </div>
+        {{#each emp_jobs}}
+        <div class="card col-md-4 mt-3">
+          <div class="card-header text-center">
+            <a href="/job_details/{{this._id}}"><strong>{{this.title}}</strong></a>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Description: {{this.description}}</li>
+            <li class="list-group-item">Location: {{ this.location }}</li>
+            <li class="list-group-item">Salary: {{this.salary}}$ Per Month</li>
+          </ul>
+          <button class="btn btn-primary mx-auto w-50 m-1" onclick="window.location.href='/job_details/{{this._id}}'">View Details</button>
+          <button class="btn btn-danger mx-auto w-50 m-1" onclick="deleteJob('{{this._id}}')">Delete Job</button>
+        </div>
+        {{/each}}
+
+      </div>
+    </div>
+  </div>
+  {{> footer}}
+</body>
+
+<script>
+  function deleteJob(id) {
+    $.ajax({
+      url: '/delete_job/' + id,
+      type: 'DELETE',
+      success: function (result) {
+        alert('Job deleted successfully');
+        window.location.href = '/employer_jobs';
+      },
+      error: function (err) {
+        alert("Something went wrong");
+      }
+    });
+  }
+</script>
+
+</html>
