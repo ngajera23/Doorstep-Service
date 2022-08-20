@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{{title}}</title>
+  {{> externals }}
+</head>
+
+<body>
+  {{> header }}
+  <div class="container">
+    <h1 class="mt-3">
+      Hello {{user.local.firstName}}
+    </h1>
+    <div class="container">
+      <div class="col-md-12 row mt-2">
+        <div class="col-md-12 mt-2">
+          <h2 class="text-center">Applied Jobs</h2>
+        </div>
+        {{#each all_jobs}}
+        <div class="card col-md-4 mt-3">
+          <div class="card-header text-center">
+            <strong>{{this.title}}</strong>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Description: {{this.description}}</li>
+            <li class="list-group-item">Location: {{ this.location }}</li>
+            <li class="list-group-item">Salary: {{this.salary}}$ Per Month</li>
+          </ul>
+          <button class="btn btn-primary btn-block m-3 disabled" disabled>
+            Applied
+          </button>
+        </div>
+        {{/each}}
+
+      </div>
+    </div>
+  </div>
+  {{> footer}}
+</body>
+
+</html>
