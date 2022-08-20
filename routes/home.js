@@ -30,6 +30,21 @@ router.get('/employer_jobs', authorizeUser, async function (req, res, next) {
   });
 })
 
+/* GET worker jobs page */
+router.get('/worker_jobs', authorizeUser, async function (req, res, next) {
+
+  if (req.user.role == EMPLOYER) {
+    res.redirect('/employer_jobs');
+  }
+
+  const all_jobs = await Jobs.find({});
+
+  res.render('worker_jobs', {
+    title: 'Worker Jobs',
+    user: req.user,
+    all_jobs: all_jobs,
+  });
+});
 
 /* GET create job page */
 router.get('/create_job', authorizeUser, async function (req, res, next) {
@@ -54,6 +69,32 @@ router.post('/create_job', authorizeUser, async function (req, res, next) {
   res.redirect('/employer_jobs');
 });
 
+/* APPLY for a job */
+router.post('/apply_job', authorizeUser, async function (req, res, next) {
+
+  if (req.user.role == EMPLOYER) {
+    res.redirect('/employer_jobs');
+  }
+
+  const job = await Jobs.findById(req.body.job_id);
+  const jobWorker = new JobWorker({
+    job: job._id,
+    worker: req.user._id
+  });
+  await jobWorker.save();
+  res.redirect('/worker_jobs');
+});
+
+/* GET Applied jobs */
+router.get('/applied_jobs', authorizeUser, async function (req, res, next) {
+  if (req.user.role == EMPLOYER) {
+    res.redirect('/employer_jobs');
+  }
+
+  const applied_jobs = (await JobWorker.find({ worker: req.user._id }, { job: 1, _id: 0 })).map(job => job.job);
+  const all_jobs = await Jobs.find({ _id: { $in: applied_jobs } });
+  res.render('applied_jobs', { title: 'Applied Jobs', user: req.user, all_jobs: all_jobs });
+});
 
 /* DELETE JOb */
 router.delete('/delete_job/:id', authorizeUser, async function (req, res, next) {
