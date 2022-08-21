@@ -122,5 +122,38 @@ router.get('/job_details/:id', authorizeUser, async function (req, res, next) {
 });
 
 
+/* GET WOrker profile */
+router.get('/worker_profile/:id', authorizeUser, async function (req, res, next) {
+
+  if (req.user.role == WORKER) {
+    res.redirect('/worker_jobs');
+  }
+
+  const worker = await User.findById(req.params.id);
+  const reviews = await Reviews.find({ worker: req.params.id });
+  const avg_rating = reviews.reduce((acc, curr) => acc + curr.rating, 0) / reviews.length;
+
+  res.render('worker_profile', {
+    title: 'Worker Profile', reviews: reviews,
+    user: req.user,
+    worker: worker,
+    avg_rating: avg_rating
+  });
+});
+
+
+/* Add review of worker */
+router.post('/add_review', authorizeUser, async function (req, res, next) {
+  const { review, rating, worker_id } = req.body;
+  const review_obj = new Reviews({
+    review: review,
+    rating: rating,
+    worker: worker_id,
+    reviewer: req.user._id
+  });
+  await review_obj.save();
+  res.redirect('/worker_profile/' + req.body.worker_id);
+});
+
 
 module.exports = router;
