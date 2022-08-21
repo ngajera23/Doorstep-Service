@@ -46,7 +46,7 @@ module.exports = function (passport) {
             return done(err);
           }
 
-          const { first_name, last_name, role } = req.body;
+          const { first_name, last_name, role, skills } = req.body;
 
           if (user) {
             return done(null, false, req.flash('signupMessage', 'Error! the email is already taken.'));
@@ -61,6 +61,7 @@ module.exports = function (passport) {
             newUser.local.lastName = last_name;
             newUser.local.email = email.toLowerCase();
             newUser.local.password = newUser.generateHash(password);
+            newUser.skills = skills;
             newUser.role = role;
 
             try {

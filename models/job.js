@@ -8,6 +8,7 @@ var schema = mongoose.Schema({
   salary: { type: String, required: true },
   employer: { type: Schema.Types.ObjectId, ref: 'User' },
   createdAt: { type: Date, default: Date.now },
+  zipcode: { type: String, required: true },
 });
 
 

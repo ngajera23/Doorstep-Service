@@ -11,6 +11,7 @@ var schema = mongoose.Schema({
     email: { type: String, required: true },
     password: { type: String, required: true },
   },
+  skills: { type: String, required: false },
   role: { type: Number, enum: { EMPLOYER, WORKER }, default: WORKER }
 });
 

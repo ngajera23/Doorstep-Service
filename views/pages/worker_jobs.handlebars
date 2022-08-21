@@ -18,6 +18,21 @@
           <h2 class="text-center">All Jobs</h2>
         </div>
 
+        <div class="col-md-12 mb-3 row">
+          <form class="col-md-12 mb-3 row" method="get" action="/worker_jobs">
+            <input type="text" value="{{item}}" name="item" class="col-md-6 form-control w-50" id="search" placeholder="Search">
+            <select name="field" class="form-select col-md-3 w-25">
+              <option value="skills">Skills</option>
+              <option value="location">Location</option>
+              <option value="title">Title</option>
+              <option value="salary">Salary</option>
+              <option value="zipcode">Zipcode</option>
+            </select>
+            <button class="btn btn-primary col-md-3" id="searchBtn">Search</button>
+          </form>
+        </div>
+        <hr />
+
         {{#each all_jobs}}
         <div class="card col-md-4 mt-3">
           <div class="card-header text-center">
@@ -27,6 +42,7 @@
             <li class="list-group-item">Description: {{this.description}}</li>
             <li class="list-group-item">Location: {{ this.location }}</li>
             <li class="list-group-item">Salary: {{this.salary}}$ Per Month</li>
+            <li class="list-group-item">Zipcode: {{this.zipcode}}</li>
           </ul>
           <button class="btn btn-primary btn-block m-3" onclick="apply('{{this.id}}')">
             Apply

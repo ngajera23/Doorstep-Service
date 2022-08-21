@@ -36,13 +36,30 @@ router.get('/worker_jobs', authorizeUser, async function (req, res, next) {
   if (req.user.role == EMPLOYER) {
     res.redirect('/employer_jobs');
   }
+  const worker_jobs = (await JobWorker
+    .find({ worker: req.user._id }, { job: 1, _id: 0 }))
+    .map(job => job.job);
 
-  const all_jobs = await Jobs.find({});
+  const { item, field } = req.query;
+  let query = {}
+
+  if (item && field) {
+    query = {
+      [field]: {$regex: item, $options: 'i'},
+      _id: { $nin: worker_jobs }
+    };
+  } else {
+    query = { _id: { $nin: worker_jobs } };
+  }
+
+  const all_jobs = await Jobs.find(query);
 
   res.render('worker_jobs', {
     title: 'Worker Jobs',
     user: req.user,
     all_jobs: all_jobs,
+    item: item,
+    field: field
   });
 });
 
@@ -63,7 +80,8 @@ router.post('/create_job', authorizeUser, async function (req, res, next) {
     description: req.body.description,
     location: req.body.location,
     salary: req.body.salary,
-    employer: req.user._id
+    employer: req.user._id,
+    zipcode: req.body.zipcode
   });
   await job.save();
   res.redirect('/employer_jobs');

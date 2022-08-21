@@ -71,6 +71,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
+// Variables accessible in all views
+app.use(function (req, res, next) {
+  app.locals.userLoggedIn = req.isAuthenticated();
+
+  if (app.locals.userLoggedIn) {
+    app.locals.isEmployer = req.user.role == 0;
+  }
+  next();
+});
 
 // ----------------------------- routes -----------------------------
 app.use('/', indexRouter);

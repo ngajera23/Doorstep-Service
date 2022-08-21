@@ -7,11 +7,6 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        {{#unless isEmployer}}
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/applied_jobs">My jobs</a>
-        </li>
-        {{/unless}}
 
         {{#unless userLoggedIn}}
         <li class="nav-item">
@@ -23,10 +18,24 @@
         {{/unless}}
 
         {{#if userLoggedIn}}
+        {{#unless isEmployer}}
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/applied_jobs">My jobs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/worker_jobs">All jobs</a>
+        </li>
+        {{/unless}}
+
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
         </li>
         {{/if}}
+
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/contact">Contact us</a>
+        </li>
+
       </ul>
     </div>
   </div>
