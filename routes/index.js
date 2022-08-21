@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 const User = require('../models/user');
+const Jobs = require('../models/job');
 var authorizeUser = require('../middlewares/auth');
 
 const EMPLOYER = 0
@@ -57,6 +58,14 @@ router.post('/signup', passport.authenticate('local-signup', {
   failureRedirect: '/signup',
   failureFlash: true
 }));
+
+/* GET USer profile */
+router.get('/profile', authorizeUser, function (req, res, next) {
+  if (!req.user.skills) {
+    req.user.skills = "";
+  }
+  res.render('user_profile', { title: 'Profile', user: req.user, image: "https://picsum.photos/200" });
+})
 
 /* GET logout. */
 router.get('/logout', function (req, res, next) {
