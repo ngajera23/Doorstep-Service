@@ -12,9 +12,33 @@
   {{> header }}
   <div class="container">
     <div class="page-header m-t-1">
-      <h1>
+      <h1 class="mt-2">
         {{ title }}
       </h1>
+    </div>
+    <div class="container">
+      <div class="col-md-12 row mt-2">
+        <hr/>
+        <div class="col-md-12 mt-2">
+          <h2 class="text-center">Exploye our jobs</h2>
+        </div>
+        {{#each all_jobs}}
+        <div class="card col-md-4 mt-3">
+          <div class="card-header text-center">
+            <strong>{{this.title}}</strong>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Description: {{this.description}}</li>
+            <li class="list-group-item">Location: {{ this.location }}</li>
+            <li class="list-group-item">Salary: {{this.salary}}$ Per Month</li>
+          </ul>
+          <a class="btn btn-primary btn-block m-3" href="/signup" target="_blank">
+            Apply
+          </a>
+        </div>
+        {{/each}}
+
+      </div>
     </div>
   </div>
   {{>footer}}
