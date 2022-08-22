@@ -3,6 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 const User = require('../models/user');
 const Jobs = require('../models/job');
+const ContactUs = require('../models/contact_us');
 var authorizeUser = require('../middlewares/auth');
 
 const EMPLOYER = 0
@@ -72,5 +73,30 @@ router.get('/logout', function (req, res, next) {
   req.logOut();
   res.redirect('/');
 })
+
+/* GET Contact us page. */
+router.get('/contact', function (req, res, next) {
+  res.render('contact', { title: 'Contact us' });
+})
+
+/* Post Contact us page. */
+router.post('/contact', async function (req, res, next) {
+  const { name, email, description, title } = req.body;
+
+  if (!name || !email || !description || !title) {
+    res.render('contact', { message: 'All fields are required' });
+  }
+
+  const contact_us = new ContactUs({
+    name: name,
+    email: email,
+    description: description,
+    title: title
+  });
+
+  await contact_us.save();
+  res.render('contact', { message: 'Your message has been sent!' });
+})
+
 
 module.exports = router;
