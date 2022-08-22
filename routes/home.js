@@ -9,11 +9,6 @@ var authorizeUser = require('../middlewares/auth');
 const EMPLOYER = 0
 const WORKER = 1
 
-/* GET home page. */
-router.get('/home', authorizeUser, function (req, res, next) {
-  res.render('home', { title: 'Home', user: req.user });
-});
-
 /* GET employer jobs page. */
 router.get('/employer_jobs', authorizeUser, async function (req, res, next) {
 

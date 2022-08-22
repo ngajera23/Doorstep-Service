@@ -8,10 +8,10 @@ var authorizeUser = require('../middlewares/auth');
 
 const EMPLOYER = 0
 const WORKER = 1
-
 /* GET home page. */
-router.get('/', function (req, res, next) {
-  res.render('main', { title: 'Welcome!' });
+router.get('/', async function (req, res, next) {
+  const all_jobs = await Jobs.find({});
+  res.render('main', { title: 'Welcome to the project!', all_jobs: all_jobs });
 });
 
 /* GET login page. */
