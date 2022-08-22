@@ -16,13 +16,19 @@
     <div class="d-flex">
       <form method="post" class="mx-auto" action="/create_job">
         <label for="title" class="mt-2">Title</label>
-        <input type="text" class="form-control mt-2" name="title" placeholder="Job Title" id="jobTitle" />
-        <label  class="mt-2" for="description">Description</label>
-        <input type="text" class="form-control mt-2" name="description" placeholder="Job Description" id="jobDescription" />
+        <input type="text" required class="form-control mt-2" name="title" placeholder="Job Title" id="jobTitle" />
+        <label class="mt-2" for="description">Description</label>
+        <input type="text" required class="form-control mt-2" name="description" placeholder="Job Description"
+          id="jobDescription" />
         <label class="mt-2" for="location">Location</label>
-        <input type="text" class="form-control mt-2" name="location" placeholder="Job Location" id="jobLocation" />
+        <input type="text" required class="form-control mt-2" name="location" placeholder="Job Location"
+          id="jobLocation" />
+        <label class="mt-2" for="location">Zip code</label>
+        <input type="text" required class="form-control mt-2" name="zipcode" placeholder="Job Location"
+          id="zipcode" />
+
         <label class="mt-2" for="salary">Salary</label>
-        <input type="number" class="form-control mt-2" name="salary" placeholder="Job Salary" id="jobSalary" />
+        <input type="number" required class="form-control mt-2" name="salary" placeholder="Job Salary" id="jobSalary" />
         <button type="submit" class="btn btn-primary mt-2 w-100">Post Job</button>
       </form>
     </div>

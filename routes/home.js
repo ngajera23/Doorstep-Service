@@ -9,6 +9,7 @@ var authorizeUser = require('../middlewares/auth');
 const EMPLOYER = 0
 const WORKER = 1
 
+
 /* GET employer jobs page. */
 router.get('/employer_jobs', authorizeUser, async function (req, res, next) {
 
@@ -168,5 +169,14 @@ router.post('/add_review', authorizeUser, async function (req, res, next) {
   res.redirect('/worker_profile/' + req.body.worker_id);
 });
 
+/* GET reviews */
+router.get('/reviews', authorizeUser, async function (req, res, next) {
+  if (req.user.role == EMPLOYER) {
+    res.redirect('/employer_jobs');
+  }
+
+  const reviews = await Reviews.find({ worker: req.user._id }).populate('reviewer');
+  res.render('worker_reviews', { title: 'Reviews', user: req.user, reviews: reviews });
+});
 
 module.exports = router;

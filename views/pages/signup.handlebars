@@ -10,11 +10,7 @@
   {{> header }}
   <div class="container">
     {{#if message }}
-    <div class="alert alert-warning alert-dismissible fade in" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <strong>Error!</strong>
+    <div class="alert alert-warning alert-dismissible in" role="alert">
       {{message}}
     </div>
     {{/if}}
@@ -28,12 +24,16 @@
       <label class="mt-3">Last Name</label>
       <input type="text" id="last_name" name="last_name" class="form-control mt-2" placeholder="Last Name" required="">
 
+      <label class="mt-3">Your skills</label>
+      <input type="text" id="skills" name="skills" class="form-control mt-2" placeholder="Skills" required="">
 
       <label class="mt-3">Email address</label>
       <input type="email" id="email" name="email" class="form-control mt-2" placeholder="Email address" required="">
 
       <label class="mt-3">Password</label>
       <input type="password" id="password" name="password" class="form-control mt-2" placeholder="Password" required="">
+
+
 
       {{!-- add role check box --}}
       <div class="mt-3">

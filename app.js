@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo');
 const Handlebars = require('handlebars');
+var flash = require('connect-flash');
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
 var passport = require('passport');
 const DB_URL = 'mongodb://localhost:27017/my-web-project';
@@ -40,6 +41,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 
@@ -77,10 +79,11 @@ app.use(function (req, res, next) {
 
   if (app.locals.userLoggedIn) {
     app.locals.isEmployer = req.user.role == 0;
+    app.locals.firstName = req.user.local.firstName;
   }
   next();
 });
-
+app.use(flash());
 // ----------------------------- routes -----------------------------
 app.use('/', indexRouter);
 app.use('/', homeRouter);

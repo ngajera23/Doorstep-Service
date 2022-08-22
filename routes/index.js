@@ -8,6 +8,7 @@ var authorizeUser = require('../middlewares/auth');
 
 const EMPLOYER = 0
 const WORKER = 1
+
 /* GET home page. */
 router.get('/', async function (req, res, next) {
   const all_jobs = await Jobs.find({});
@@ -25,7 +26,7 @@ router.get('/login', function (req, res, next) {
     }
   }
 
-  res.render('login', { title: 'Login' });
+  res.render('login', { title: 'Login', message: req.flash('message') });
 })
 
 /* GET register page. */
@@ -38,7 +39,7 @@ router.get('/signup', function (req, res, next) {
     }
   }
 
-  res.render('signup', { title: 'Register' });
+  res.render('signup', { title: 'Register', message: req.flash('message') });
 })
 
 /* POST LOGIN */

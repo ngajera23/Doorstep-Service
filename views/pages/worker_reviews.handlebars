@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{{title}}</title>
+  {{> externals }}
+</head>
+
+<body>
+  {{> header }}
+  <div class="container">
+    <h1 class="mt-3">
+      Hello {{user.local.firstName}}
+    </h1>
+    <div class="container">
+      <div class="col-md-12 mt-2">
+        <div class="col-md-12 mt-2">
+          <h2 class="text-center">Your reviews</h2>
+        </div>
+        <hr />
+        {{#each reviews}}
+        <div class="card mt-3">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Reviewer:</strong> {{this.reviewer.local.firstName}} {{this.reviewer.local.lastName}}
+            </li>
+            <li class="list-group-item"><strong>Review:</strong> {{ this.review }}</li>
+            <li class="list-group-item"><strong>Rating:</strong> {{this.rating}}/5</li>
+            <li class="list-group-item"><strong>Given date:</strong> {{this.createdAt}}</li>
+          </ul>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+  {{> footer}}
+</body>
+
+</html>

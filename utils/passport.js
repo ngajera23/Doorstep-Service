@@ -19,11 +19,11 @@ module.exports = function (passport) {
         }
 
         if (!user) {
-          return done(null, false, req.flash('loginMessage', 'User not found'));
+          return done(null, false, req.flash('message', 'User not found'));
         }
 
         if (!user.validatePassword(password)) {
-          return done(null, false, req.flash('loginMessage', 'Wrong credentials'));
+          return done(null, false, req.flash('message', 'Wrong credentials'));
         } else {
           return done(null, user);
         }
@@ -49,12 +49,12 @@ module.exports = function (passport) {
           const { first_name, last_name, role, skills } = req.body;
 
           if (user) {
-            return done(null, false, req.flash('signupMessage', 'Error! the email is already taken.'));
+            return done(null, false, req.flash('message', 'Error! the email is already taken.'));
           } else {
             var newUser = new User();
 
             if (!(first_name.trim() && last_name.trim())) {
-              return done(null, false, req.flash('signupMessage', 'Error! All fields are required.'));
+              return done(null, false, req.flash('message', 'Error! All fields are required.'));
             }
 
             newUser.local.firstName = first_name;
@@ -68,7 +68,7 @@ module.exports = function (passport) {
               await newUser.save();
               return done(null, newUser);
             } catch (err) {
-              return done(null, false, req.flash('signupMessage', 'Error! Something went wrong.'));
+              return done(null, false, req.flash('message', 'Error! Something went wrong.'));
             }
           }
         });
