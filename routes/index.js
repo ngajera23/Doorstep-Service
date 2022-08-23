@@ -12,7 +12,7 @@ const WORKER = 1
 /* GET home page. */
 router.get('/', async function (req, res, next) {
   const all_jobs = await Jobs.find({});
-  res.render('main', { title: 'Welcome to the project!', all_jobs: all_jobs });
+  res.render('main', { title: 'DoorStep Service!', all_jobs: all_jobs });
 });
 
 /* GET login page. */
@@ -56,10 +56,15 @@ router.post('/login', passport.authenticate('local-login', {
 
 /* POST REGISTER */
 router.post('/signup', passport.authenticate('local-signup', {
-  successRedirect: '/home',
   failureRedirect: '/signup',
   failureFlash: true
-}));
+}), function (req, res) {
+  if (req.user.role == EMPLOYER) {
+    res.redirect('/employer_jobs');
+  } else {
+    res.redirect('/worker_jobs');
+  }
+});
 
 /* GET USer profile */
 router.get('/profile', authorizeUser, function (req, res, next) {
