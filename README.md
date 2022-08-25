@@ -13,7 +13,7 @@ to apply the database dump
 
 ```
 cd <Project root folder>
-mongorestore --db test-dump dump/my-web-project/
+mongorestore --db my-web-project dump/my-web-project/
 ```
 
 Steps to run this project
