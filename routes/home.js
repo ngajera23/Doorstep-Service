@@ -17,7 +17,7 @@ router.get('/employer_jobs', authorizeUser, async function (req, res, next) {
     res.redirect('/worker_jobs');
   }
 
-  const emp_jobs = await Jobs.find({ user: req.user._id });
+  const emp_jobs = await Jobs.find({ employer: req.user._id });
 
   res.render('employer_jobs', {
     title: 'Employer Jobs',

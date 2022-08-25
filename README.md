@@ -1,20 +1,40 @@
 # Doorstep-Service
 
 
-Requirements  
+Requirements
 - Node (version 17.0.0 +)
-- MongoDB (should be running on port `27017` in localhost) 
+- MongoDB (should be running on port `27017` in localhost)
 
-Steps to run this project 
 
-1. Install the dependencies 
+Database dump is provided inside `dump` folder to test the project with dummy data
+
+
+to apply the database dump
+
 ```
-npm install 
+cd <Project root folder>
+mongorestore --db test-dump dump/my-web-project/
 ```
 
-2. Run the project 
+Steps to run this project
+
+1. Install the dependencies
 ```
-npm start 
+npm install
 ```
 
-The project will be started on http://localhost:3000. 
+2. Run the project
+```
+npm start
+```
+
+Test accounts for Employer and worker
+```
+Employer - nikunj007.gajera@gmail.com
+Password - Nikunj231
+
+Worker - Surbhidhanani094@gmail.com
+Pass - Surbhi2810
+```
+
+The project will be started on http://localhost:3000.
